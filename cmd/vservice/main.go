@@ -11,23 +11,23 @@ import (
 )
 
 const (
-	playbookServiceENV = "SERVICE_CONFIG_PATH"
+	videoServiceEnv = "SERVICE_CONFIG_PATH"
 )
 
 func main() {
 	ctx := context.TODO()
-	playbookServiceConfigPath := os.Getenv(playbookServiceENV)
-	if playbookServiceConfigPath == "" {
+	videoServiceConfigPath := os.Getenv(videoServiceEnv)
+	if videoServiceConfigPath == "" {
 
 		os.Exit(1)
 	}
 
-	cfg, err := config.LoadFile(playbookServiceConfigPath)
+	cfg, err := config.LoadFile(videoServiceConfigPath)
 	if err != nil {
 		os.Exit(1)
 	}
 
-	app, err := video.NewApp(ctx, cfg.PostgresConfig)
+	app, err := video.NewApp(ctx, cfg.PostgresConfig, cfg.RabbitConfig)
 	if err != nil {
 		fmt.Print(err)
 	}

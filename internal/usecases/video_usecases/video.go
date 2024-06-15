@@ -14,10 +14,10 @@ type Commands struct {
 	AddVectors commands.AddVectorsCommand
 }
 
-func NewVideoUsecases(vRepo entities.VideoRepository) VideoUsecases {
+func NewVideoUsecases(vRepo entities.VideoRepository, tService entities.TagService) VideoUsecases {
 	return VideoUsecases{
 		Commands: Commands{
-			IndexVideo: commands.NewIndexVideoCommand(vRepo),
+			IndexVideo: commands.NewIndexVideoCommand(vRepo, tService),
 			AddVectors: commands.NewAddVectorCommand(vRepo),
 		},
 	}

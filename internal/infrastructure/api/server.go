@@ -34,10 +34,12 @@ func (s *Server) Start(ctx context.Context) {
 	go func() {
 		listener := make(chan os.Signal, 1)
 		signal.Notify(listener, os.Interrupt, syscall.SIGTERM)
+		fmt.Println("Received a shutdown signal:", <-listener)
 		// Listen on application shutdown signals.
 
 		// Shutdown HTTP server.
-		if err := s.srv.Shutdown(context.Background()); err != nil && !errors.Is(err, http.ErrServerClosed) {
+		if err := s.srv.Shutdown(ctx); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			fmt.Printf("Failed to shutdown: %s", err)
 		}
 	}()
 

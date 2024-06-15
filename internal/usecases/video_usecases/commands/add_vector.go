@@ -2,6 +2,7 @@ package commands
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/inview-team/sadko_indexer/internal/entities"
@@ -22,6 +23,10 @@ func (c *AddVectorsCommand) Execute(ctx context.Context, videoID string, vectors
 		return err
 	}
 
+	if video == nil {
+		return ErrVideoNotFound
+	}
+
 	video.RelatedVectorIDs = vectors
 
 	err = c.repo.Update(ctx, video)
@@ -30,3 +35,7 @@ func (c *AddVectorsCommand) Execute(ctx context.Context, videoID string, vectors
 	}
 	return nil
 }
+
+var (
+	ErrVideoNotFound = errors.New("video does not exist")
+)

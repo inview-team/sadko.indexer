@@ -1,0 +1,11 @@
+postgres:
+  ip: 127.0.0.1
+  port: 5432
+  user: indexer
+  password: password
+  database: sadko
+rabbit:
+  ip: 127.0.0.1
+  port: 5672
+  user: indexer
+  password: password

@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/inview-team/sadko_indexer/internal/infrastructure/tag_service/rabbitmq"
 	"github.com/inview-team/sadko_indexer/internal/infrastructure/video_repository/postgres"
 	"gopkg.in/yaml.v3"
 )
 
 type Config struct {
 	PostgresConfig postgres.Config `yaml:"postgres"`
+	RabbitConfig   rabbitmq.Config `yaml:"rabbit"`
 }
 
 func Load(s string) (*Config, error) {

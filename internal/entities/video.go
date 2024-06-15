@@ -28,3 +28,7 @@ type VideoRepository interface {
 	Update(ctx context.Context, video *Video) error
 	NextID(ctx context.Context) VideoID
 }
+
+type TagService interface {
+	TagVideo(ctx context.Context, video *Video) error
+}
