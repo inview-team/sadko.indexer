@@ -71,5 +71,5 @@ func makeVideoRoutes(r *mux.Router, app *video.App) {
 	path := "/index"
 	serviceRouter := r.PathPrefix(path).Subrouter()
 	serviceRouter.Handle("", indexVideo(app.Video)).Methods("POST")
-	serviceRouter.Handle(fmt.Sprintf("/%s", patternVideoID), addVectorsId(app.Video)).Methods("POST")
+	serviceRouter.Handle(fmt.Sprintf("/%s", patternVideoID), addVectorsId(app.Video)).Methods("PUT")
 }

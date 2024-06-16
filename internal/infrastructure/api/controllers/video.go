@@ -1,7 +1,7 @@
 package controllers
 
 type IndexVideoPayload struct {
-	Url         string `json:"url"`
+	Url         string `json:"link"`
 	Description string `json:"description"`
 }
 

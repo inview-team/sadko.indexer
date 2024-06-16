@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+    title: Indexer Service
+    description: Service for creating tasks for indexing
+    version: '1.0.0'
+paths:
+  /index:
+    post:
+      requestBody:
+        description: Add new video to index storage
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/video'
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+  /index/{id}:
+    put:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Upload related vectors to video
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/vector'
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '404':
+          description: Video not found
+
+components:
+  schemas:
+    video:
+      type: object
+      required:
+        - link
+        - description
+      properties:
+        description:
+          type: string
+          example: '#технологии #девайсы #technologies #гаджеты #смартчасы #умныечасы #миф'
+        link:
+          type: string
+          example: https://cdn-st.rutubelist.ru/media/f4/8d/0766c7c04bb1abb8bf57a83fa4e8/fhd.mp4
+    vector:
+      type: object
+      properties:
+        vectors:
+          type: array
+          items:
+            type: string
+            example: "450508656601991781"
