@@ -19,8 +19,7 @@ func NewAddVectorCommand(repo entities.VideoRepository) AddVectorsCommand {
 func (c *AddVectorsCommand) Execute(ctx context.Context, videoID string, vectors []entities.VectorID) error {
 	video, err := c.repo.GetByID(ctx, videoID)
 	if err != nil {
-		fmt.Printf("failed to add vectors: %v", err)
-		return err
+		return fmt.Errorf("failed to add vectors: %v", err)
 	}
 
 	if video == nil {
@@ -31,7 +30,7 @@ func (c *AddVectorsCommand) Execute(ctx context.Context, videoID string, vectors
 
 	err = c.repo.Update(ctx, video)
 	if err != nil {
-		fmt.Printf("failed to add vectors: %v", err)
+		return fmt.Errorf("failed to add vectors: %v", err)
 	}
 	return nil
 }

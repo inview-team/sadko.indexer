@@ -18,12 +18,12 @@ func main() {
 	ctx := context.TODO()
 	videoServiceConfigPath := os.Getenv(videoServiceEnv)
 	if videoServiceConfigPath == "" {
-
 		os.Exit(1)
 	}
 
 	cfg, err := config.LoadFile(videoServiceConfigPath)
 	if err != nil {
+
 		os.Exit(1)
 	}
 

@@ -3,6 +3,7 @@ module github.com/inview-team/sadko_indexer
 go 1.21.6
 
 require (
+	github.com/D3vR4pt0rs/logger v0.0.0-20220410142958-21efa638ac32
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/mux v1.8.1
 	github.com/jackc/pgx/v5 v5.6.0

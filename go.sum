@@ -1,3 +1,5 @@
+github.com/D3vR4pt0rs/logger v0.0.0-20220410142958-21efa638ac32 h1:aUbQEfEc9m79uswboCovx0m5mtK0eCH/39x1tiBYmO8=
+github.com/D3vR4pt0rs/logger v0.0.0-20220410142958-21efa638ac32/go.mod h1:eAt3WOBeAsJ8U9dzrW+re21+hLMjHVOaX+oQeuRCIhw=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=

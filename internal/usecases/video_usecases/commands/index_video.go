@@ -20,14 +20,12 @@ func (c *IndexVideoCommand) Execute(ctx context.Context, url string, description
 	video := entities.NewVideo(c.repo.NextID(ctx), url, description, []entities.VectorID{})
 	err := c.repo.Create(ctx, video)
 	if err != nil {
-		fmt.Printf("failed to index video: %v", err)
-		return "", err
+		return "", fmt.Errorf("failed to index video: %v", err)
 	}
 
 	err = c.service.TagVideo(ctx, video)
 	if err != nil {
-		fmt.Printf("failed to index video: %v", err)
-		return "", err
+		return "", fmt.Errorf("failed to index video: %v", err)
 	}
 	return string(video.ID), nil
 }

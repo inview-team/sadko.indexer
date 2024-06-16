@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/D3vR4pt0rs/logger"
 	"github.com/gorilla/mux"
 	"github.com/inview-team/sadko_indexer/internal/application/video"
 	"github.com/inview-team/sadko_indexer/internal/entities"
@@ -21,6 +22,7 @@ func indexVideo(usecases video_usecases.VideoUsecases) http.Handler {
 
 		cVideo := new(controllers.IndexVideoPayload)
 		if err := json.NewDecoder(r.Body).Decode(cVideo); err != nil {
+			logger.Error.Print("failed to decode payload")
 			http.Error(w, errorMessage, http.StatusBadRequest)
 			return
 		}
@@ -28,6 +30,7 @@ func indexVideo(usecases video_usecases.VideoUsecases) http.Handler {
 		_, err := usecases.IndexVideo.Execute(ctx, cVideo.Url, cVideo.Description)
 
 		if err != nil {
+			logger.Error.Printf("failed to index video: %v", err)
 			http.Error(w, errorMessage, http.StatusInternalServerError)
 			return
 		}
@@ -42,6 +45,7 @@ func addVectorsId(usecases video_usecases.VideoUsecases) http.Handler {
 
 		mVectors := new(controllers.VectorsPayload)
 		if err := json.NewDecoder(r.Body).Decode(mVectors); err != nil {
+			logger.Error.Print("failed to decode payload")
 			http.Error(w, errorMessage, http.StatusBadRequest)
 		}
 
@@ -64,5 +68,5 @@ func makeVideoRoutes(r *mux.Router, app *video.App) {
 	path := "/index"
 	serviceRouter := r.PathPrefix(path).Subrouter()
 	serviceRouter.Handle("", indexVideo(app.Video)).Methods("POST")
-	serviceRouter.Handle(fmt.Sprintf("/%s", patternVideoID), addVectorsId(app.Video)).Methods("PUT")
+	serviceRouter.Handle(fmt.Sprintf("/%s", patternVideoID), addVectorsId(app.Video)).Methods("POST")
 }
