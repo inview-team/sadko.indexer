@@ -54,7 +54,7 @@ func (c *Client) Create(ctx context.Context, video *entities.Video) error {
 }
 
 func (c *Client) GetByID(ctx context.Context, videoID string) (*entities.Video, error) {
-	query := `SELECT id, url, description, vectors FROM videos WHERE id = $1`
+	query := `SELECT id, url, description, related_vectors FROM videos WHERE id = $1`
 	var mVideo Video
 	err := c.client.QueryRow(ctx, query, videoID).Scan(&mVideo.ID, &mVideo.Url, &mVideo.Description, &mVideo.VectorIDs)
 	if err != nil {
@@ -70,7 +70,7 @@ func (c *Client) GetByID(ctx context.Context, videoID string) (*entities.Video, 
 }
 
 func (c *Client) Update(ctx context.Context, video *entities.Video) error {
-	query := `UPDATE videos SET (url, description, vectors) = ($2, $3, $4) WHERE id = $1`
+	query := `UPDATE videos SET (url, description, related_vectors) = ($2, $3, $4) WHERE id = $1`
 
 	_, err := c.client.Exec(ctx, query, video.ID, video.URL, video.Description, video.RelatedVectorIDs)
 

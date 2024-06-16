@@ -45,7 +45,7 @@ func addVectorsId(usecases video_usecases.VideoUsecases) http.Handler {
 
 		mVectors := new(controllers.VectorsPayload)
 		if err := json.NewDecoder(r.Body).Decode(mVectors); err != nil {
-			logger.Error.Print("failed to decode payload")
+			logger.Error.Print("failed to decode payload: %v", err)
 			http.Error(w, errorMessage, http.StatusBadRequest)
 		}
 
@@ -56,9 +56,12 @@ func addVectorsId(usecases video_usecases.VideoUsecases) http.Handler {
 
 		err := usecases.AddVectors.Execute(ctx, mux.Vars(r)[videoID], vectors)
 		if err != nil {
+			logger.Error.Print("failed to decode payload: %v", err)
 			if errors.Is(err, commands.ErrVideoNotFound) {
 				http.Error(w, errorMessage, http.StatusNotFound)
+				return
 			}
+
 			http.Error(w, errorMessage, http.StatusInternalServerError)
 		}
 	})
